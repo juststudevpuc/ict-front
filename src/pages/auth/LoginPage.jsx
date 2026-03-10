@@ -5,7 +5,15 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { request } from "@/utils/request/request";
-import { LogIn, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import {
+  LogIn,
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  ArrowLeft,
+  ShieldCheck,
+} from "lucide-react";
 import { setUser } from "@/store/userSlice";
 import { setToken } from "@/store/tokenSlice";
 
@@ -17,25 +25,50 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
 
+  // async function onSubmit(e) {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   setValidate({});
+  //   try {
+  //     const res = await request("login", "post", form);
+  //     if (res?.error) {
+  //       if (res?.errors) setValidate(res?.errors);
+  //       setIsLoading(false);
+  //       return;
+  //     }
+  //     if (res) {
+  //       dispatch(setUser(res?.user));
+  //       dispatch(setToken(res?.token));
+  //       // Simple role-based routing
+  //       navigate(res?.user?.role === "admin" ? "/admin" : "/user", { replace: true });
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     setIsLoading(false);
+  //   }
+  // }
   async function onSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
     setValidate({});
+
     try {
+      // 1. Hit the User-only endpoint
       const res = await request("login", "post", form);
+
       if (res?.error) {
         if (res?.errors) setValidate(res?.errors);
         setIsLoading(false);
         return;
       }
+
       if (res) {
         dispatch(setUser(res?.user));
         dispatch(setToken(res?.token));
-        if (res?.user?.role === "admin") {
-          navigate("/admin", { replace: true });
-        } else {
-          navigate("/user", { replace: true });
-        }
+
+        // 2. We removed the "admin" check!
+        // Just send them straight to the courses or their profile.
+        navigate("/", { replace: true });
       }
     } catch (error) {
       console.error(error);
@@ -44,104 +77,172 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6 font-serif">
-      {/* Login Card */}
-      <form
-        onSubmit={onSubmit}
-        className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-8 border border-gray-200"
-      >
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <div className="flex justify-center">
-            <div className="w-14 h-14 bg-[#006039] rounded-xl flex items-center justify-center shadow-md">
-              <LogIn className="text-white" size={28} />
-            </div>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-800 uppercase tracking-wide">
-            Welcome Back
-          </h1>
-          <p className="text-gray-500">Sign in to your account</p>
-        </div>
+    <div className="min-h-screen flex bg-white font-sans">
+      {/* --- LEFT SIDE: BRANDING & IMAGE --- */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-[#002147]">
+        {/* <img 
+          src="/ict_logo.png" // Use a high-quality campus/tech image
+          alt="ICT Center" 
+          className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
+        /> */}
 
-        {/* Form Fields */}
-        <div className="space-y-5">
-          {/* Email */}
-          <div className="space-y-2">
-            <Label className="text-gray-700 font-medium">Email Address</Label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-              <Input
-                type="email"
-                value={form?.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                placeholder="Enter your email"
-                className={`pl-10 pr-4 py-5 rounded-lg border-gray-300 focus:border-[#006039] focus:ring-2 focus:ring-[#006039]/30 transition ${
-                  validate?.email ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""
-                }`}
+        <div className="relative z-10 p-12 flex flex-col justify-between w-full">
+          <div className="flex items-center gap-2 text-white">
+            <div className="w-13 h-13 flex items-center justify-center bg-white rounded-4xl ">
+              <img
+                alt="ICT Center Logo"
+                src="/ict_logo2.png"
+                className="w-full h-full object-contain"
               />
             </div>
-            {validate?.email && <p className="text-red-500 text-sm mt-1">{validate?.email[0]}</p>}
+            <span className=" font-bold text-xl tracking-tight">
+              ICT CENTER
+            </span>
           </div>
 
-          {/* Password */}
-          <div className="space-y-2">
-            <Label className="text-gray-700 font-medium">Password</Label>
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-              <Input
-                type={showPassword ? "text" : "password"}
-                value={form?.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
-                placeholder="Enter your password"
-                className={`pl-10 pr-12 py-5 rounded-lg border-gray-300 focus:border-[#006039] focus:ring-2 focus:ring-[#006039]/30 transition ${
-                  validate?.password ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""
-                }`}
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition"
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
-            </div>
-            {validate?.password && <p className="text-red-500 text-sm mt-1">{validate?.password[0]}</p>}
+          <div className="space-y-6">
+            <h2 className="text-5xl font-serif font-bold text-white leading-tight">
+              Empowering your <br />
+              <span className="text-amber-400 font-sans font-light">
+                Digital Future.
+              </span>
+            </h2>
+            <p className="text-slate-300 text-lg max-w-md font-light">
+              Join the largest tech community in Cambodia and master the skills
+              of tomorrow.
+            </p>
           </div>
+
+          <p className="text-slate-400 text-sm">
+            © 2026 ICT Center of Technology. All rights reserved.
+          </p>
         </div>
+      </div>
 
-        {/* Buttons */}
-        <div className="space-y-4">
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-[#006039] hover:bg-[#004d2f] text-white py-5 rounded-lg shadow-md transition font-medium text-base disabled:opacity-70"
-          >
-            {isLoading ? "Signing in..." : "Sign In"}
-          </Button>
-
-          <Button
-            type="button"
-            variant="outline"
+      {/* --- RIGHT SIDE: LOGIN FORM --- */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 md:p-16 bg-slate-50 lg:bg-white">
+        <div className="w-full max-w-md space-y-8">
+          {/* Back Button for UX */}
+          <button
             onClick={() => navigate("/")}
-            className="w-full py-5 rounded-lg border-gray-300 hover:bg-gray-50 transition font-medium"
+            className="flex items-center gap-2 text-slate-400 hover:text-blue-700 transition-colors text-sm font-medium group"
           >
-            Cancel
-          </Button>
-        </div>
+            <ArrowLeft
+              size={16}
+              className="group-hover:-translate-x-1 transition-transform"
+            />
+            Back to Website
+          </button>
 
-        {/* Footer */}
-        <div className="text-center pt-4 border-t border-gray-200">
-          <p className="text-gray-600">
-            Don’t have an account?{" "}
+          <div className="space-y-2">
+            <h1 className="text-3xl font-black text-[#002147] tracking-tight">
+              User Dashboard
+            </h1>
+            <p className="text-slate-500">
+              Enter your credentials to access your dashboard.
+            </p>
+          </div>
+
+          <form onSubmit={onSubmit} className="space-y-6">
+            <div className="space-y-4">
+              {/* Email Field */}
+              <div className="space-y-2">
+                <Label className="text-slate-700 font-bold text-xs uppercase tracking-widest">
+                  Email Address
+                </Label>
+                <div className="relative group">
+                  <Mail
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-700 transition-colors"
+                    size={18}
+                  />
+                  <Input
+                    type="email"
+                    required
+                    value={form.email}
+                    onChange={(e) =>
+                      setForm({ ...form, email: e.target.value })
+                    }
+                    placeholder="name@example.com"
+                    className={`pl-10 h-12 bg-white border-slate-200 focus:border-[#006039] focus:ring-4 focus:ring-[#006039]/5 transition-all ${
+                      validate?.email ? "border-red-500" : ""
+                    }`}
+                  />
+                </div>
+                {validate?.email && (
+                  <p className="text-red-500 text-[10px] font-bold uppercase mt-1 tracking-wider">
+                    {validate?.email[0]}
+                  </p>
+                )}
+              </div>
+
+              {/* Password Field */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <Label className="text-slate-700 font-bold text-xs uppercase tracking-widest">
+                    Password
+                  </Label>
+                  {/* <NavLink to="/auth/forgot" className="text-xs font-bold text-amber-600 hover:text-amber-700">Forgot?</NavLink> */}
+                </div>
+                <div className="relative group">
+                  <Lock
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-700 transition-colors"
+                    size={18}
+                  />
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    required
+                    value={form.password}
+                    onChange={(e) =>
+                      setForm({ ...form, password: e.target.value })
+                    }
+                    placeholder="••••••••"
+                    className={`pl-10 pr-12 h-12 bg-white border-slate-200 focus:border-[#006039] focus:ring-4 focus:ring-[#006039]/5 transition-all ${
+                      validate?.password ? "border-red-500" : ""
+                    }`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+                {validate?.password && (
+                  <p className="text-red-500 text-[10px] font-bold uppercase mt-1 tracking-wider">
+                    {validate?.password[0]}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full h-12 bg-blue-700 hover:bg-blue-800 text-white rounded-xl shadow-lg shadow-[#006039]/20 transition-all font-bold text-sm tracking-wide disabled:opacity-50"
+            >
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Authenticating...
+                </div>
+              ) : (
+                "SIGN IN TO DASHBOARD"
+              )}
+            </Button>
+          </form>
+
+          <p className="text-center text-slate-500 text-sm">
+            New student?{" "}
             <NavLink
               to="/auth/register"
-              className="font-semibold text-[#006039] hover:text-[#004d2f] transition"
+              className="font-bold color- hover:underline decoration-2 underline-offset-4"
             >
-              Create Account
+              Create an account
             </NavLink>
           </p>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

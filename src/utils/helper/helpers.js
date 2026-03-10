@@ -5,7 +5,7 @@ import { configs } from "../config/configs";
 // 2. Create the helper function
 export const getImageUrl = (path) => {
   // If the path is empty/null, return a placeholder image
-  if (!path) {
+  if (!path || typeof path !== "string") {
     return "https://placehold.co/600x400?text=No+Image";
   }
 

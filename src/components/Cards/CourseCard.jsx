@@ -11,18 +11,18 @@ const CourseCard = ({ data }) => {
 
   return (
     <Card className="group flex flex-col h-full border border-slate-100 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:shadow-[#003868]/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-      
       {/* Image Area - Navigation on Click */}
       <div
         onClick={() => navigate(`/course/${data?.id || data?._id}`)}
         className="relative block h-52 w-full overflow-hidden bg-slate-50 cursor-pointer"
       >
         <img
-          src={getImageUrl(data?.image)}
+          // Check for Cloudinary URL first, fallback to standard image field
+          src={getImageUrl(data?.image_url || data?.image)}
           alt={data?.title}
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
           onError={(e) => {
-            e.target.src = "https://placehold.co/400x300?text=No+Preview"; // Fallback image
+            e.target.src = "https://placehold.co/400x300?text=No+Preview";
           }}
         />
         {/* Subtle overlay on hover */}
@@ -50,7 +50,9 @@ const CourseCard = ({ data }) => {
         {/* Price & Action */}
         <div className="mt-auto pt-5 border-t border-slate-50 flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase text-slate-400 tracking-widest">Fee</span>
+            <span className="text-[10px] font-bold uppercase text-slate-400 tracking-widest">
+              Fee
+            </span>
             <span className="text-2xl font-black text-[#003868]">
               ${data?.price || "0"}
             </span>

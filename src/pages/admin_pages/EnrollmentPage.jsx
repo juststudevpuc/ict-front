@@ -601,7 +601,7 @@ export default function Enrollment() {
         </Dialog>
       </div>
       {/* --- FINANCIAL SUMMARY CARDS --- */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 font-khmer md:grid-cols-3 gap-4 mb-6">
         {/* Card 1: Total Expected */}
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
           <div className="h-12 w-12 rounded-xl bg-violet-50 flex items-center justify-center">
@@ -638,7 +638,7 @@ export default function Enrollment() {
             <AlertCircle className="text-rose-600 w-6 h-6" />
           </div>
           <div>
-            <p className="text-xl font-bold uppercase tracking-widest">
+            <p className="text-xl font-bold  uppercase tracking-widest">
               ប្រាក់ជំពាក់របស់សិស្ស (Debt)
             </p>
             <h3 className="text-2xl font-black text-rose-600">
@@ -978,7 +978,7 @@ export default function Enrollment() {
                       {formatDate(item?.updated_at)}
                     </TableCell>
                     <TableCell>
-                      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="flex gap-2  group-hover:opacity-100 transition-opacity">
                         <Button
                           size="icon"
                           variant="ghost"

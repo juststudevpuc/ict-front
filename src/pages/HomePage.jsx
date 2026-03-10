@@ -113,43 +113,43 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-slate-900/60 mix-blend-multiply z-10" />
 
         {/* --- CONTENT (Sits on top of everything) --- */}
-        <div className="relative z-20 w-full  flex  mx-auto px-6">
-          <h1 className="text-white text-3xl md:text-5xl font-bold tracking-tight mb-8 leading-tight">
-            ICT Center <br />
-            <span className="text-slate-300  font-light text-2xl md:text-3xl block mt-2">
-              of Technology
-            </span>
-          </h1>
-          {/* <span className="inline-block py-1 px-3 border border-amber-500/50 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold tracking-[0.2em] uppercase mb-6 backdrop-blur-sm">
-            Est. 2025 • Excellence in Education
-          </span>
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-6 py-20 text-center">
+          {/* 1. Pre-Title (The "Classic" Label) */}
+          <p className="text-amber-500 font-bold uppercase tracking-[0.3em] text-xs mb-4">
+            Est. 2024 • Excellence in Education
+          </p>
 
-          <h1 className="text-white text-5xl md:text-7xl font-serif font-bold tracking-tight mb-8 leading-tight">
+          {/* 2. Main Title - Centered and Structured */}
+          <h1 className="text-white text-4xl md:text-6xl font-black tracking-tight mb-6 leading-none uppercase">
             ICT Center <br />
-            <span className="text-slate-300 font-sans font-light text-4xl md:text-6xl block mt-2">
+            <span className="text-slate-300 font-serif italic normal-case text-2xl md:text-4xl block mt-4 font-light border-t border-b border-white/20 py-2 inline-block px-8">
               of Technology
             </span>
           </h1>
 
-          <p className="text-slate-200 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto font-light">
-            Empowering the next generation of innovators. Join a community
+          {/* 3. Description - Balanced and Readable */}
+          <p className="text-slate-200 text-base md:text-lg leading-relaxed mb-12 max-w-2xl mx-auto font-medium tracking-wide">
+            Empowering the next generation of innovators. Join a community{" "}
+            <br className="hidden md:block" />
             dedicated to shaping the future of digital excellence.
-          </p> */}
+          </p>
 
-          {/* <div className="flex flex-col sm:flex-row justify-end   gap-4">
+          {/* 4. Action Buttons - Plaque Style */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
             <Link
               to="/courses"
-              className="px-8 py-4 bg-amber-600 text-white text-sm font-bold uppercase tracking-widest hover:bg-amber-700 transition-all shadow-lg hover:shadow-amber-600/20"
+              className="w-full sm:w-auto px-10 py-4 bg-white text-[#003868] text-xs font-black uppercase tracking-[0.2em] hover:bg-slate-100 transition-all shadow-[6px_6px_0px_0px_rgba(217,119,6,1)] active:translate-x-1 active:translate-y-1 active:shadow-none"
             >
               Explore Courses
             </Link>
+
             <Link
               to="/about"
-              className="px-8 py-4 bg-transparent border border-white text-white text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all"
+              className="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-white text-white text-xs font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-all"
             >
               Visit Campus
             </Link>
-          </div> */}
+          </div>
         </div>
 
         {/* --- SLIDER CONTROLS (Optional) --- */}

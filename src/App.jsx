@@ -17,17 +17,24 @@ import AuthLayout from "./components/layout/AuthLayout";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Dashboard from "./pages/admin_pages/Dashboard";
+import EmployeePage from "./pages/admin_pages/EmployeePage";
+import AdminLoginPage from "./pages/auth/AdminLoginPage";
 
 export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* --- 1. USER AUTHENTICATION --- */}
         <Route path="auth" element={<AuthLayout />}>
           <Route index element={<LoginPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
         </Route>
+        {/* --- 2. ADMIN AUTHENTICATION (Separate from public AuthLayout) --- */}
+        <Route path="admin/login" element={<AdminLoginPage />} />
 
+        {/* --- 3. PUBLIC WEBSITE --- */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="aboutict" element={<Aboutict />} />
@@ -44,7 +51,9 @@ export const App = () => {
             </ProtectedRoute>
           }
         >
-          <Route index element={<CoursePage />} />
+          <Route index element={<Dashboard />} />
+          <Route path="Dashboard" element={<Dashboard />} />
+          <Route path="EmployeePage" element={<EmployeePage />} />
           <Route path="courseAdmin" element={<CoursePage />} />
           <Route path="schedulePage" element={<SchedulePage />} />
           <Route path="instructorPage" element={<InstructorPage />} />
