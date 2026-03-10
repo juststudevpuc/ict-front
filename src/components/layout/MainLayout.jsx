@@ -2,12 +2,13 @@ import { Button, Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
 import { Menu, X, Search, Globe, ChevronDown, LogIn } from "lucide-react";
 import { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { NavDropdown } from "./Navdropdown";
+
 import { useAuth } from "@/hooks/useAuth";
 // ✅ Added Redux imports for Logout functionality
 import { useDispatch } from "react-redux";
 import { setUser } from "@/store/userSlice";
 import { setToken } from "@/store/tokenSlice";
+import { NavDropdown } from "./NavDropdown";
 
 export default function MainLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
