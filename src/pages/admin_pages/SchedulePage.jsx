@@ -411,7 +411,7 @@ export default function SchedulePage() {
         <>
           {/* MOBILE & TABLET CARDS (Hidden on large screens) */}
           <div className="grid grid-cols-2 md:grid-cols-2 lg:hidden gap-4">
-            {schedule.map((item, index) => (
+            {schedule?.map((item, index) => (
               <div key={item._id || item.id || index} className="bg-white border rounded-xl p-5 shadow-sm space-y-4 relative overflow-hidden">
                 <div className="flex justify-between items-start">
                   <div>
