@@ -473,7 +473,7 @@ export default function SchedulePage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {schedule.map((item, index) => (
+                {schedule?.map((item, index) => (
                   <TableRow key={item._id || item.id || index} className="hover:bg-blue-50/50 group transition-colors">
                     <TableCell className="font-medium text-slate-500">{index + 1}</TableCell>
                     <TableCell className="font-semibold text-slate-900 whitespace-nowrap">
