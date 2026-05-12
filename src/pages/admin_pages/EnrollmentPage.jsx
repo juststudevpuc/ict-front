@@ -207,9 +207,9 @@ export default function Enrollment() {
       let res;
       if (isEdit) {
         formData.append("_method", "PUT");
-        res = await request(`enrollment/${form?.id}`, "post", formData);
+        res = await request(`admin/enrollment/${form?.id}`, "post", formData);
       } else {
-        res = await request("enrollment", "post", formData);
+        res = await request("admin/enrollment", "post", formData);
       }
 
       if (res) {
@@ -864,7 +864,7 @@ export default function Enrollment() {
           </div>
 
           {/* --- DESKTOP TABLE VIEW (Hidden on mobile) --- */}
-          <div className="hidden lg:block border rounded-xl bg-white shadow-md overflow-hidden border-slate-200">
+          <div className="hidden lg:block border bg-white shadow-sm border-slate-200 overflow-x-auto custom-scrollbar">
             <Table>
               <TableHeader className="bg-[#003868]">
                 <TableRow className="hover:bg-[#003868]">
@@ -1019,7 +1019,7 @@ export default function Enrollment() {
               variant="destructive"
               onClick={async () => {
                 const res = await request(
-                  `enrollment/${deleteData?.id}`,
+                  `admin/enrollment/${deleteData?.id}`,
                   "delete",
                 );
                 if (res) {

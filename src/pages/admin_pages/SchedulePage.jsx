@@ -119,10 +119,10 @@ export default function SchedulePage() {
 
       if (isEdit) {
         formData.append("_method", "PUT");
-        res = await request(`schedule/${form?.id}`, "post", formData);
+        res = await request(`admin/schedule/${form?.id}`, "post", formData);
         if (res) console.log("Updated schedule : ", res);
       } else {
-        res = await request("schedule", "post", formData);
+        res = await request("admin/schedule", "post", formData);
         if (res) console.log("Created schedule : ", res);
       }
 
@@ -461,7 +461,7 @@ export default function SchedulePage() {
           </div>
 
           {/* DESKTOP TABLE (Hidden on mobile/tablet) */}
-          <div className="hidden lg:block border rounded-xl bg-white shadow-sm overflow-hidden border-slate-200">
+          <div className="hidden lg:block border bg-white shadow-sm border-slate-200 overflow-x-auto custom-scrollbar">
             <Table>
               <TableHeader className="bg-[#003868]">
                 <TableRow className="hover:bg-[#003868]">
@@ -546,7 +546,7 @@ export default function SchedulePage() {
               className="px-6"
               onClick={async () => {
                 try {
-                  const res = await request(`schedule/${deleteData?.id || deleteData?._id}`, "delete");
+                  const res = await request(`admin/schedule/${deleteData?.id || deleteData?._id}`, "delete");
                   if (res) {
                     fetchingData();
                     setDeleteData(null);

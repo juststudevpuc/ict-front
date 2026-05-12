@@ -113,10 +113,10 @@ export default function EmployeePage() {
 
       if (isEdit) {
         formData.append("_method", "PUT");
-        res = await request(`employee/${form?.id}`, "post", formData);
+        res = await request(`admin/employee/${form?.id}`, "post", formData);
         if (res) console.log("Updated employee : ", res);
       } else {
-        res = await request("employee", "post", formData);
+        res = await request("admin/employee", "post", formData);
         if (res) console.log("Created employee : ", res);
       }
 
@@ -155,7 +155,7 @@ export default function EmployeePage() {
   };
 
   return (
-    <div className="p-4 md:p-8 space-y-6 max-w-7xl mx-auto min-h-screen">
+    <div className="p-4 md:p-1 space-y-9 max-w-6xl mx-auto min-h-screen">
       {/* --- Header Section --- */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -427,7 +427,7 @@ export default function EmployeePage() {
           </div>
 
           {/* DESKTOP TABLE (Hidden on mobile/tablet) */}
-          <div className="hidden lg:block border rounded-xl bg-white shadow-sm overflow-hidden border-slate-200">
+          <div className="hidden lg:block border bg-white shadow-sm border-slate-200 overflow-x-auto custom-scrollbar">
             <Table>
               <TableHeader className="bg-[#003868]">
                 <TableRow className="hover:bg-[#003868]">
@@ -557,7 +557,7 @@ export default function EmployeePage() {
               onClick={async () => {
                 try {
                   const res = await request(
-                    `employee/${deleteData?.id || deleteData?._id}`,
+                    `admin/employee/${deleteData?.id || deleteData?._id}`,
                     "delete",
                   );
                   if (res) {

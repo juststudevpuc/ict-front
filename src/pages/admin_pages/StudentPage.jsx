@@ -120,9 +120,9 @@ export default function StudentPage() {
       let res;
       if (isEdit) {
         formData.append("_method", "PUT");
-        res = await request(`student/${form?.id}`, "post", formData);
+        res = await request(`admin/student/${form?.id}`, "post", formData);
       } else {
-        res = await request("student", "post", formData);
+        res = await request("admin/student", "post", formData);
       }
 
       if (res) {
@@ -162,7 +162,7 @@ export default function StudentPage() {
 
   const handleSearch = async () => {
     setLoading(true);
-    const res = await request(`student/search/?q=${query}`, "get");
+    const res = await request(`admin/student/search/?q=${query}`, "get");
     if (res) {
       setStudent(res?.data);
       setLoading(false);
@@ -413,7 +413,7 @@ export default function StudentPage() {
                 className="flex-1 bg-rose-600 shadow-lg shadow-rose-200"
                 onClick={async () => {
                   const res = await request(
-                    `student/${deleteData?.id}`,
+                    `admin/student/${deleteData?.id}`,
                     "delete",
                   );
                   if (res) {
@@ -422,7 +422,7 @@ export default function StudentPage() {
                   }
                 }}
               >
-                Delete Now
+                Delete Now 
               </Button>
             </div>
           </div>
@@ -442,7 +442,7 @@ export default function StudentPage() {
           {/* 1. MOBILE VIEW (Cards) */}
           {viewMode === "mobile" && (
             <div className="grid grid-cols-2 gap-4">
-              {student.map((item) => (
+              {student?.map((item) => (
                 <div
                   key={item.id}
                   className="bg-white p-5 rounded-3xl border-2 border-slate-100 shadow-sm"
@@ -511,7 +511,7 @@ export default function StudentPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {student.map((item) => (
+                  {student?.map((item) => (
                     <TableRow key={item.id}>
                       <TableCell className="font-bold">
                         {item.full_name}
@@ -545,7 +545,7 @@ export default function StudentPage() {
 
           {/* 3. DESKTOP VIEW (Your Original Table - Exact Code) */}
           {viewMode === "desktop" && (
-            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-200/40">
+            <div className="hidden lg:block border bg-white shadow-sm border-slate-200 overflow-x-auto custom-scrollbar">
               <Table>
                 <TableHeader className="bg-slate-50/80 border-b border-slate-200">
                   <TableRow className="hover:bg-transparent">
@@ -560,7 +560,7 @@ export default function StudentPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {student.map((item, index) => (
+                  {student?.map((item, index) => (
                     <TableRow
                       key={item.id || index}
                       className="group border-b border-slate-50 transition-all hover:bg-slate-50/50"
@@ -661,3 +661,5 @@ export default function StudentPage() {
     </div>
   );
 }
+
+// dont forget to add admin in put post and delete

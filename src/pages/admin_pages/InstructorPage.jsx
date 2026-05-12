@@ -106,10 +106,10 @@ export default function InstructorPage() {
 
       if (isEdit) {
         formData.append("_method", "PUT");
-        res = await request(`instructor/${form?.id}`, "post", formData);
+        res = await request(`admin/instructor/${form?.id}`, "post", formData);
         if (res) console.log("Updated instructor : ", res);
       } else {
-        res = await request("instructor", "post", formData);
+        res = await request("admin/instructor", "post", formData);
         if (res) console.log("Created instructor : ", res);
       }
 
@@ -342,7 +342,7 @@ export default function InstructorPage() {
           </div>
 
           {/* DESKTOP TABLE (Hidden on mobile/tablet) */}
-          <div className="hidden lg:block border rounded-xl bg-white shadow-sm overflow-hidden border-slate-200">
+          <div className="hidden lg:block border bg-white shadow-sm border-slate-200 overflow-x-auto custom-scrollbar">
             <Table>
               <TableHeader className="bg-[#003868]">
                 <TableRow className="hover:bg-[#003868]">
@@ -453,7 +453,7 @@ export default function InstructorPage() {
               onClick={async () => {
                 try {
                   const res = await request(
-                    `instructor/${deleteData?.id || deleteData?._id}`,
+                    `admin/instructor/${deleteData?.id || deleteData?._id}`,
                     "delete"
                   );
                   if (res) {

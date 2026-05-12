@@ -133,9 +133,9 @@ export default function CourseDetailAdmin() {
       let res;
       if (isEdit) {
         formData.append("_method", "PUT");
-        res = await request(`courseDetail/${form?.id}`, "post", formData);
+        res = await request(`admin/courseDetail/${form?.id}`, "post", formData);
       } else {
-        res = await request("courseDetail", "post", formData);
+        res = await request("admin/courseDetail", "post", formData);
       }
 
       if (res) {
@@ -329,7 +329,7 @@ export default function CourseDetailAdmin() {
                 onClick={async () => {
                   try {
                     const res = await request(
-                      `courseDetail/${deleteData?.id || deleteData?._id}`,
+                      `admin/courseDetail/${deleteData?.id || deleteData?._id}`,
                       "delete",
                     );
                     if (res) {
@@ -429,7 +429,7 @@ export default function CourseDetailAdmin() {
             </div>
 
             {/* DESKTOP TABLE (Hidden on mobile/tablet) */}
-            <div className="hidden lg:block bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden mt-6">
+            <div className="hidden lg:block border bg-white shadow-sm border-slate-200 overflow-x-auto custom-scrollbar">
               <Table>
                 <TableHeader className="bg-slate-50/80">
                   <TableRow>

@@ -108,9 +108,9 @@ export default function CoursePage() {
       let res;
       if (isEdit) {
         formData.append("_method", "PUT");
-        res = await request(`course/${form?.id}`, "post", formData);
+        res = await request(`admin/course/${form?.id}`, "post", formData);
       } else {
-        res = await request("course", "post", formData);
+        res = await request("admin/course", "post", formData);
       }
       if (res?.error) {
         console.error("Laravel Validation Failed!", res.errors);
@@ -369,7 +369,7 @@ export default function CoursePage() {
                 className="flex-1"
                 onClick={async () => {
                   const res = await request(
-                    `course/${deleteData?.id}`,
+                    `admin/course/${deleteData?.id}`,
                     "delete",
                   );
                   if (res) {
@@ -484,7 +484,7 @@ export default function CoursePage() {
             </div>
 
             {/* DESKTOP TABLE (Hidden on mobile/tablet) */}
-            <div className="hidden lg:block bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="hidden lg:block border bg-white shadow-sm border-slate-200 overflow-x-auto custom-scrollbar">
               <Table>
                 <TableHeader className="bg-slate-50/80 border-b border-slate-200">
                   <TableRow className="hover:bg-slate-50/80">
