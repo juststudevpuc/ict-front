@@ -6,14 +6,16 @@ export const request = async (url = "", method = "get", data = {}) => {
     const state = store.getState();
     const token = state.token?.value || state.token;
 
+    // 1. Only set Accept by default
     let headers = {
-        Accept: "application/json",
-        "content-type": "application/json"
+        "Accept": "application/json",
     };
 
-    if (data instanceof FormData) {
-        headers["Content-Type"] = "multipart/form-data";
+    // 2. Only add Content-Type: application/json if it is NOT FormData
+    if (!(data instanceof FormData)) {
+        headers["Content-Type"] = "application/json";
     }
+    // (If it IS FormData, we leave Content-Type completely blank so Axios can generate the proper multipart boundary automatically)
 
     if (token) {
         headers["Authorization"] = `Bearer ${token}`;
@@ -53,7 +55,9 @@ export const request = async (url = "", method = "get", data = {}) => {
                 }
                 // ✅ NEW: Handle 403 Forbidden (If User tries to do Admin things)
                 if (status === 403) {
-                    console.log("Access Denied: You do not have permission.");
+                    console.log("Access Denied: Kicking back to home...");
+                    window.location.href = "/";
+                    return { error: true, message: "Access Denied" };
                 }
 
                 if (status === 500) {

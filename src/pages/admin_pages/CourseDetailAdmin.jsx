@@ -94,7 +94,7 @@ export default function CourseDetailAdmin() {
   const fetchingData = async () => {
     setLoading(true);
     try {
-      const res = await request("courseDetail", "get");
+      const res = await request("admin/courseDetail", "get");
       const courseRes = await request("course", "get");
       const scheduleRes = await request("schedule", "get");
 

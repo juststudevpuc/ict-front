@@ -123,7 +123,7 @@ export default function Enrollment() {
         const queryString = new URLSearchParams(cleanParams).toString();
 
         const [enroll, courseRes, studentRes, scheduleRes] = await Promise.all([
-          request(`enrollment?${queryString}`, "get"),
+          request(`admin/enrollment/?${queryString}`, "get"),
           request("course", "get"),
           request("student", "get"),
           request("schedule", "get"),

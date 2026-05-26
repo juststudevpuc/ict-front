@@ -114,6 +114,12 @@ export default function CoursePage() {
       }
       if (res?.error) {
         console.error("Laravel Validation Failed!", res.errors);
+        console.log("1. What is in React state?", form?.image);
+
+        console.log("2. What is inside FormData?");
+        for (let [key, value] of formData.entries()) {
+          console.log(`${key}:`, value);
+        }
         alert(
           "Validation Error. Please check the console to see which field failed.",
         );

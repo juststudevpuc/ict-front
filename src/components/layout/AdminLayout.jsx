@@ -250,20 +250,20 @@ const Sidebar = ({ isOpen, setIsOpen, setIsOpenDesktop, isOpenDesktop }) => {
                 className="flex items-center gap-4 cursor-pointer"
                 onClick={() => navigate("/admin/courseAdmin")}
               >
-                <div className="w-12 h-12 flex items-center justify-center bg-white rounded-4xl p-1 shadow-sm">
+                {/* <div className="w-12 h-12 flex items-center justify-center bg-white rounded-4xl p-1 shadow-sm">
                   <img
                     alt="ICT Center Logo"
                     src="/ict_logo2.png"
                     className="w-full h-full object-contain"
                   />
-                </div>
+                </div> */}
                 <div className="flex flex-col">
                   <h2 className="text-lg font-black tracking-wide text-white uppercase">
-                    ICT Center
-                  </h2>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-blue-300 mt-1">
                     System Admin
-                  </span>
+                  </h2>
+                  {/* <span className="text-[10px] font-bold uppercase tracking-widest text-blue-300 mt-1">
+                    System Admin
+                  </span> */}
                 </div>
               </div>
             </div>
